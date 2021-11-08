@@ -21,3 +21,6 @@
 /config/crds/
 .idea/**
 .DS_Store
+
+index.yaml
+cluster-proxy-*.tgz

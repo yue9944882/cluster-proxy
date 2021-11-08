@@ -73,6 +73,7 @@ func (p *proxyAgent) Manifests(managedCluster *clusterv1.ManagedCluster, addon *
 		}
 	}
 	deploying := []runtime.Object{
+		newNamespace(addon.Spec.InstallNamespace),
 		newCASecret(addon.Spec.InstallNamespace, AgentCASecretName, p.selfSigner.CAData()),
 		newClusterService(addon.Spec.InstallNamespace, managedCluster.Name),
 		newAgentDeployment(managedCluster.Name, addon.Spec.InstallNamespace, config, lbEndpoint),
@@ -208,6 +209,14 @@ const (
 	AgentSecretName   = "cluster-proxy-open-cluster-management.io-proxy-agent-signer-client-cert"
 	AgentCASecretName = "cluster-proxy-ca"
 )
+
+func newNamespace(targetNamespace string) *corev1.Namespace {
+	return &corev1.Namespace{
+		ObjectMeta: metav1.ObjectMeta{
+			Name: targetNamespace,
+		},
+	}
+}
 
 func newAgentDeployment(clusterName, targetNamespace string, proxyConfig *proxyv1alpha1.ManagedProxyConfiguration, loadBalancerEndpoint string) *appsv1.Deployment {
 	serviceEntryPoint := proxyConfig.Spec.ProxyServer.InClusterServiceName + "." + proxyConfig.Spec.ProxyServer.Namespace
