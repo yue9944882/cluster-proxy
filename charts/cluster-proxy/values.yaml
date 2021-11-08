@@ -1,5 +1,5 @@
 # Image of the cluster-gateway instances
-image: yue9944882/cluster-proxy-addon-manager:v0.0.9
+image: yue9944882/cluster-proxy-addon-manager:v0.0.10
 
 # Number of replicas
 replicas: 3
