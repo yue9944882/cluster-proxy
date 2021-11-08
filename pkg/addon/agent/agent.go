@@ -212,6 +212,10 @@ const (
 
 func newNamespace(targetNamespace string) *corev1.Namespace {
 	return &corev1.Namespace{
+		TypeMeta: metav1.TypeMeta{
+			APIVersion: "",
+			Kind:       "Namespace",
+		},
 		ObjectMeta: metav1.ObjectMeta{
 			Name: targetNamespace,
 		},
